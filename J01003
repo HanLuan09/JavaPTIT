@@ -1,0 +1,21 @@
+import java.util.Scanner;
+public class J01002Ptbac1 {
+    public static void main(String[] args){
+        double a,b;
+        Scanner tmp=new Scanner(System.in);
+        a = tmp.nextDouble();
+        b = tmp.nextDouble();
+        if(a==0){
+            if(b==0){
+                System.out.println("VSN");
+            }
+            else{
+                System.out.println("VN");
+            }
+        }
+        else{
+            double x=-b/a;
+            System.out.printf("%.2f",x);
+        }
+    }
+}
