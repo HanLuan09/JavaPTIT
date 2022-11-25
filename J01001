@@ -1,0 +1,21 @@
+import java.util.Scanner;
+public class J01001HinhChuNhat {
+    public static void main(String[] args){
+        Scanner tmp=new Scanner(System.in);
+        int n,m;
+        n=tmp.nextInt();
+        m=tmp.nextInt();
+        if(n<=0||m<=0){
+            System.out.println(0);
+        }
+        else{
+            long Chuvi=2*(n+m);
+            long DienTich=m*n;
+
+            System.out.print(Chuvi);
+            System.out.print(" ");
+            System.out.println(DienTich);
+        }
+        
+    }
+}
