@@ -1,0 +1,14 @@
+import java.util.Scanner;
+public class J01002TinhTong {
+    public static void main(String[] args) {
+        int t;
+        Scanner tmp= new Scanner(System.in);
+        t=tmp.nextInt();
+        for(int x=0;x<t;x++){
+            long n,sum=0;
+            n=tmp.nextLong();
+            sum=n*(n+1)/2;
+            System.out.println(sum);
+        }
+    }
+}
