@@ -1,0 +1,23 @@
+import java.util.Scanner;
+import java.lang.Math;
+public class J01004SNT {
+    public static void main(String[] args){
+        int t;
+        Scanner tmp= new Scanner(System.in);
+        t= tmp.nextInt();
+        while(t-->0){
+            int n; 
+            n=tmp.nextInt();
+            int x=isprime(n);
+            if(x==0) System.out.println("NO");
+            else System.out.println("YES");
+        }
+    }
+    private static int isprime(int n){
+        if(n<2) return 0;
+        for(int i=2;i<=Math.sqrt(n);i++){
+            if(n%i==0) return 0;
+        }
+        return 1;
+    }
+}
