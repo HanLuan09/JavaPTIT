@@ -1,0 +1,31 @@
+import java.util.Scanner;
+import java.lang.Math;
+public class UocNTMax {
+    public static void main(String[] args){
+        int t;
+        Scanner in = new Scanner(System.in);
+        t= in.nextInt();
+        while(t-->0){
+            long n; 
+            n=in.nextLong();
+            System.out.println(Uoc(n));
+        }
+    }
+    public static int isprime(long n){
+        if(n<2) return 0;
+        for(int i=2;i<=Math.sqrt(n);i++){
+            if(n%i==0) return 0;
+        }
+        return 1;
+    }
+    private static long Uoc(long n){
+        long x=0;
+        for(long j=1;j<=Math.sqrt(n);j++){
+            if(n%j==0){
+                if(isprime(n/j)==1) return n/j;
+                else if(isprime(j)==1) x=j;
+            }
+        }
+        return x;
+    }
+}
