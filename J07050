@@ -1,0 +1,73 @@
+sapxepmathang/MainMH.java
+
+package sapxepmathang;
+
+import java.util.*;
+import java.io.*;
+public class MainMH {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in= new Scanner(new File("MATHANG.in"));
+        ArrayList<MatHang> a= new ArrayList<>();
+        int n= Integer.parseInt(in.nextLine());
+        while(n-->0){
+            MatHang mh=new MatHang(in.nextLine(),in.nextLine(),in.nextFloat(),in.nextFloat());
+            in.nextLine();
+            a.add(mh);
+        }
+        Collections.sort(a,new Comparator<MatHang>() {
+            @Override
+            public int compare(MatHang a, MatHang b) {
+                if (a.getLoinhuan()<(b.getLoinhuan()))
+                    return 1;
+                return -1;
+            }
+        });
+        for (MatHang i: a){
+            System.out.println(i);
+        }
+    }
+}
+
+sapxepmathang/MatHang.java
+
+package sapxepmathang;
+
+import java.util.*;
+import java.io.*; 
+public class MatHang {
+    static int id=1;
+    private String ten,nhom,maMH;
+    private float giamua,giaban,loinhuan;
+
+    public MatHang() {
+    }
+
+    public MatHang(String ten, String nhom, float giamua, float giaban) {
+        this.ten = ten;
+        this.nhom = nhom;
+        this.giamua = giamua;
+        this.giaban = giaban;
+        this.maMH=xulyMa(maMH);
+        this.loinhuan=giaban-giamua;
+    }
+
+    public float getLoinhuan() {
+        return loinhuan;
+    }
+    
+    private String xulyMa(String ma){
+        if(id<10){
+            ma="MH0";
+        }
+        else {
+            ma="MH";
+        }
+        ma+=Integer.toString(id++);
+        return ma;
+    }
+    public String toString(){
+        return maMH+" "+ten+" "+nhom+" "+String.format("%.2f",loinhuan);
+    }
+
+}
+
