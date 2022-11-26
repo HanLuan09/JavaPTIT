@@ -1,0 +1,150 @@
+quanlybanhang2/HoaDon.java
+
+package quanlybanhang2;
+
+import java.util.ArrayList;
+
+
+public class HoaDon implements Comparable<HoaDon>{
+    private String maHD, ma;
+    private MatHang mathang;
+    private KhachHang khachhang;
+    private int soluong, thanhtien, loinhuan;
+    private static int id=1;
+
+    public HoaDon(String ma, ArrayList<KhachHang> dsKH,ArrayList<MatHang> dsMH) {
+        this.maHD = "HD"+ String.format("%03d",id++);
+        this.ma = ma;
+        String[] s = ma.split("\\s+");
+        this.soluong =Integer.valueOf(s[2]);
+        for(KhachHang tmp : dsKH){
+            if(tmp.getMaKH().contentEquals(s[0])){
+                this.khachhang= tmp;
+                break;
+            }
+        }
+        for(MatHang tmp :dsMH ){
+            if(s[1].contains(tmp.getMaMH())){
+                this.mathang = tmp;
+                this.thanhtien = mathang.getGiaBan()*soluong;
+                this.loinhuan = thanhtien - mathang.getGiaMua()*soluong;
+                break;
+            }
+        }
+    }
+    @Override
+    public int compareTo(HoaDon x){
+        return x.loinhuan - this.loinhuan;
+    }
+    @Override
+    public String toString(){
+        return maHD +" "+ khachhang +" "+ mathang +" "+soluong+" "+thanhtien+" "+loinhuan;
+    }
+}
+
+quanlybanhang2/KhachHang.java
+
+package quanlybanhang2;
+
+import java.util.*;
+import java.text.*;
+
+public class KhachHang {
+    private String maKH,tenKH,gioiTinh,diachi;
+    private Date ngaysinh;
+    private static int id=1;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    public KhachHang(String tenKH, String gioiTinh, String ngaysinh,String diachi) throws ParseException {
+        this.maKH ="KH"+String.format("%03d",id++);
+        this.tenKH = tenKH;
+        this.gioiTinh = gioiTinh;
+        this.diachi = diachi;
+        this.ngaysinh = dateFormat.parse(ngaysinh);
+    }
+
+    public String getMaKH() {
+        return maKH;
+    }
+    
+    @Override
+    public String toString() {
+        return tenKH +" "+ diachi;
+    }
+}
+
+quanlybanhang2/MainJ06006.java
+
+package quanlybanhang2;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.*;
+
+
+public class MainJ06006 {
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
+//        Scanner in = new Scanner(new File("BANHANG1.in"));
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt(); in.nextLine();
+        ArrayList<KhachHang> listKH = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            listKH.add(new KhachHang(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+        //
+        int m= in.nextInt(); in.nextLine();
+        ArrayList<MatHang> listMH = new ArrayList<>();
+        for(int i=0;i<m;i++){
+            listMH.add(new MatHang(in.nextLine(), in.nextLine(), Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine())));
+        }
+        //
+        int k = in.nextInt(); in.nextLine();
+        ArrayList<HoaDon> listHD = new ArrayList<>();
+        for(int i=0;i<k;i++){
+            HoaDon hd = new HoaDon(in.nextLine(),listKH, listMH);
+            listHD.add(hd);
+        }
+        Collections.sort(listHD);
+        for(HoaDon i: listHD){
+            System.out.println(i);
+        }
+    }
+}
+
+quanlybanhang2/MatHang.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybanhang2;
+
+public class MatHang {
+    private String maMH, tenMH,donvitinh;
+    private int giaMua, giaBan;
+    private static int id =1;
+    public MatHang(String tenMH, String donvitinh, int giaMua, int giaBan) {
+        this.maMH = "MH"+ String.format("%03d",id++);
+        this.tenMH = tenMH;
+        this.donvitinh = donvitinh;
+        this.giaMua = giaMua;
+        this.giaBan = giaBan;
+    }
+
+    public String getMaMH() {
+        return maMH;
+    }
+
+    public int getGiaBan() {
+        return giaBan;
+    }
+    public int getGiaMua() {
+        return giaMua;
+    }
+    
+    @Override
+    public String toString() {
+        return tenMH;
+    }
+}
+
