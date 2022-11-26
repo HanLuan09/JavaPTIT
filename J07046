@@ -1,0 +1,75 @@
+danhsachluuchu/LuuTru.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package danhsachluuchu;
+
+import java.text.ParseException;
+import java.util.*;
+import java.text.*;
+import java.util.concurrent.TimeUnit;
+public class LuuTru implements Comparable<LuuTru>{
+    static int id=1;
+    private String ten,maP,maKh;
+    private Date ngden,ngdi,ng;
+    private long ngay;
+
+    public LuuTru(String ten, String maP, String ngden, String ngdi) throws ParseException  {
+        this.ten = ten;
+        this.maP = maP;
+        this.ngden = new SimpleDateFormat("dd/MM/yyyy").parse(ngden);
+        this.ngdi = new SimpleDateFormat("dd/MM/yyyy").parse(ngdi);
+        this.maKh=xulyMa(maKh);
+        this.ngay=soNgay();
+    }
+
+    private long soNgay() {
+        return TimeUnit.MILLISECONDS.toDays(ngdi.getTime() - ngden.getTime());
+    }
+    private String xulyMa(String ma){
+        if(id<10){
+            ma="KH0";
+        }
+        else {
+            ma="KH";
+        }
+        ma+=Integer.toString(id++);
+        return ma;
+    }
+    public int compareTo(LuuTru x){
+        return (int) (x.ngay - this.ngay);
+    }
+
+    @Override
+    public String toString(){
+        return maKh+" "+ten+" "+maP+ " "+ ngay;
+    }
+
+    
+}
+
+danhsachluuchu/MainLuuTru.java
+
+package danhsachluuchu;
+
+
+import java.text.ParseException;
+import java.util.*;
+import java.io.*;
+
+public class MainLuuTru {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in= new Scanner(new File("KHACH.in"));
+        int t=Integer.parseInt(in.nextLine());
+        ArrayList<LuuTru> a = new ArrayList<>();
+        while(t-->0){
+            a.add(new LuuTru(in.nextLine(),in.nextLine(),in.nextLine(),in.nextLine()));
+        }
+        Collections.sort(a);
+        for(LuuTru i: a){
+            System.out.println(i);
+        }
+    }
+}
+
