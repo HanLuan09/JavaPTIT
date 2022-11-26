@@ -1,0 +1,57 @@
+DanhSachDoanhNghiep/DoanhNghiep.java
+
+package DanhSachDoanhNghiep;
+
+
+public class DoanhNghiep {
+    private String madn,tendn;
+    private int sosv;
+
+    public DoanhNghiep() {
+    }
+
+    public DoanhNghiep(String madn, String tendn, int sosv) {
+        this.madn = madn;
+        this.tendn = tendn;
+        this.sosv = sosv;
+    }
+
+    public String getMadn() {
+        return madn;
+    }
+    
+    public String toString(){
+        return madn+" "+tendn+" "+sosv;
+    }
+}
+
+DanhSachDoanhNghiep/MainClass.java
+
+package DanhSachDoanhNghiep;
+
+import java.io.*;
+import java.util.*;
+public class MainClass {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in= new Scanner(new File("DN.in"));
+        
+        int t= Integer.parseInt(in.nextLine());
+        ArrayList<DoanhNghiep> list= new ArrayList<>();
+        while(t-->0){
+            DoanhNghiep dn= new DoanhNghiep(in.nextLine(),in.nextLine(),Integer.parseInt(in.nextLine()));
+            list.add(dn);
+        }
+        Collections.sort(list, new Comparator<DoanhNghiep>() {
+            @Override
+            public int compare(DoanhNghiep a, DoanhNghiep b) {
+                if (a.getMadn().compareTo(b.getMadn()) > 0)
+                    return 1;
+                return -1;
+            }
+        });
+        for (DoanhNghiep i: list){
+            System.out.println(i);
+        }
+    }
+}
+
