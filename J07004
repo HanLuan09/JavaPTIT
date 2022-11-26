@@ -1,0 +1,21 @@
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+public class SoKhacNhauTrongFILE {
+   
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in=new Scanner(new File("DATA.in"));
+        int[] a= new int[100005];
+        
+        while(in.hasNextInt()){
+            int n= in.nextInt();
+            a[n]++;
+        }
+        for(int i=0;i<=1000;i++){
+            if(a[i]>0){
+                System.out.printf("%d %d%n",i,a[i]);
+            }
+        }
+    }
+    
+}
