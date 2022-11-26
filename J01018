@@ -1,0 +1,33 @@
+import java.util.*;
+public class SokoLienKe {
+    
+    public static Boolean KoLienKe(String s){
+        int n=s.length();
+        for(int i=0;i<n-1;i++){
+            if(Math.abs(s.charAt(i)-s.charAt(i+1))!=2)
+                return false;
+        }
+        return true;
+    }
+    public static Boolean Tong(String s){
+        int n=s.length();
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum+=s.charAt(i)-'0';
+        }
+        if(sum%10==0) return true;
+        return false;
+    }
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int t=in.nextInt();
+        while(t-->0){
+            Long tmp=in.nextLong();
+            
+            if(Tong(Long.toString(tmp))==true && KoLienKe(Long.toString(tmp))==true) 
+                System.out.println("YES");
+            else 
+                System.out.println("NO");
+        }
+    }
+}
