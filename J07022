@@ -1,0 +1,23 @@
+import java.util.*;
+import java.io.*;
+public class LoaiBoSoNghuenFile {
+
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in=new Scanner(new File("DATA.in"));
+        Vector<String> a= new Vector<String>();
+        while(in.hasNext()){
+            String s= in.next();
+            try {
+                Integer.parseInt(s);
+            }
+            catch(NumberFormatException e){
+                a.add(s);
+            }
+        }
+        Collections.sort(a);
+        for(String i:a){
+            System.out.printf("%s ",i);
+        }
+    }
+    
+}
