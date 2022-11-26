@@ -1,0 +1,27 @@
+import java.util.*;
+public class JKT013SoLocPhat {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t=in.nextInt();
+        while(t-->0){
+            int n=in.nextInt();
+            Queue<String> q= new LinkedList<>();
+            Vector<String> A= new Vector<String>();
+            q.offer("6");
+            q.offer("8");
+            while(true){
+                String x=q.poll();
+                if(x.length()>n) break;
+                A.add(x);
+                q.offer(x+'6');
+                q.offer(x+'8');
+            }
+            System.out.println(A.size());
+            for(int i=A.size()-1;i>=0;i--){
+                System.out.printf("%s ",A.get(i));
+            }
+            System.out.printf("%n");
+        }
+       
+    }
+}
