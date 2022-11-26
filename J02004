@@ -1,0 +1,24 @@
+import java.util.*;
+public class J02004MangDoiXung {
+    public static void main(String[] args){
+        int t;
+        Scanner in =new Scanner(System.in);
+        t=in.nextInt();
+        while(t-->0){
+            int n,ok=0;
+            n=in.nextInt();
+            int[] a=new int[n];
+            for(int i=0;i<n;i++){
+                a[i]=in.nextInt();
+            }
+            for(int i=0;i<n/2;i++){
+                if(a[i]!=a[n-i-1]){
+                    ok=1;
+                    break;
+                }
+            }
+            if(ok==0) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
