@@ -1,0 +1,66 @@
+DanhSachSinhVienFlie2/Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DanhSachSinhVienFlie2;
+
+import java.util.*;
+import java.io.*;
+import java.text.*;
+public class Main {
+    public static void main(String[] args) throws  ParseException,FileNotFoundException {
+
+        Scanner in = new Scanner(new File("SV.in"));
+        
+        int n= Integer.parseInt(in.nextLine());
+        ArrayList<SinhVien> list= new ArrayList<>();
+        for(int i=0;i<n;i++){
+            SinhVien sv=new SinhVien(in.nextLine(),in.nextLine(),in.nextLine(),Float.parseFloat(in.nextLine()));
+            list.add(sv);
+        }
+        for(SinhVien i:list)
+            System.out.println(i);
+    }
+}
+
+DanhSachSinhVienFlie2/SinhVien.java
+
+package DanhSachSinhVienFlie2;
+
+
+import java.util.*;
+import java.io.*;
+import java.text.*;
+public class SinhVien {
+    static int id = 1;
+    private String masv,ten,lop;
+    private Date ns;
+    private float gpa;
+
+    public SinhVien() {
+    }
+
+    public SinhVien(String ten, String lop, String ns, float gpa) throws ParseException {
+        
+        this.ten = ten;
+        this.lop = lop;
+        this.ns = new SimpleDateFormat("dd/MM/yyyy").parse(ns);
+        this.gpa = gpa;
+        this.masv=TangMa(masv);
+    }
+    private String TangMa(String ma){
+        if (id < 10)
+            ma = "B20DCCN00";
+        else if (id < 100)
+            ma = "B20DCCN0";
+        else
+            ma = "B20DCCN";
+        ma += Integer.toString(id++);
+        return ma;
+    }
+    public String toString(){
+        return masv+" "+ten+" "+lop+" "+new SimpleDateFormat("dd/MM/yyyy").format(ns)+" "+String.format("%.2f", gpa);
+    }
+}
+
