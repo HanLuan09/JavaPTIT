@@ -1,0 +1,36 @@
+
+import java.io.*;
+import java.util.*;
+
+class WordSet {
+    
+    ArrayList<String> a= new ArrayList<>();
+    public WordSet(String fileName) throws FileNotFoundException {
+        Scanner in = new Scanner(new File("VANBAN.in"));
+        while(in.hasNext()){
+            String s=in.next();
+            s=s.toLowerCase();
+            if(!a.contains(s)){
+                
+                a.add(s);
+            }
+        }
+        Collections.sort(a);
+    }
+    
+    
+    @Override
+    public String toString() {
+        String s = "";
+        for (String i : a)
+            s += i + "\n";
+        return s;
+    }
+}
+public class LietkeTuKhacNhauFile {
+    public static void main(String[] args) throws IOException {
+        WordSet ws = new WordSet("VANBAN.in");
+        System.out.println(ws);
+    }
+}
+
