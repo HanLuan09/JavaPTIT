@@ -1,0 +1,134 @@
+quanlybaitapnhom/BaiTap.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class BaiTap {
+    private String tenNhom;
+    private int thutu;
+    public BaiTap(String tenNhom, int thutu) {
+        this.tenNhom = tenNhom;
+        this.thutu = thutu;
+    }
+
+    public int getThutu() {
+        return thutu;
+    }
+    @Override
+    public String toString(){
+        return thutu+" "+tenNhom;
+    }
+}
+
+quanlybaitapnhom/MainJ07027.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class MainJ07027 {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in;
+        in= new Scanner(new File("SINHVIEN.in"));
+        ArrayList<SinhVien> listSV = new ArrayList<>();
+        int n = in.nextInt(); in.nextLine();
+        while(n-->0){
+            listSV.add(new SinhVien(in.nextLine(), in.nextLine(),in.nextLine()));
+        }
+      
+        in = new Scanner(new File("BAITAP.in"));
+        ArrayList<BaiTap>listBt = new ArrayList<>();
+        int m = in.nextInt(); in.nextLine();
+        for(int i=1;i<=m;i++){
+            listBt.add(new BaiTap(in.nextLine(), i));
+        }
+     
+        in = new Scanner(new File("NHOM.in"));
+        ArrayList<Nhom>listNhom = new ArrayList<>();
+        while(in.hasNext()){
+            listNhom.add(new Nhom(in.nextLine(), listSV, listBt));
+        }
+        Collections.sort(listNhom);
+        for(Nhom i: listNhom){
+            System.out.println(i);
+        }
+        in.close();
+    }
+}
+
+quanlybaitapnhom/Nhom.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom;
+
+import java.util.ArrayList;
+
+public class Nhom implements Comparable<Nhom>{
+    private String nhom;
+    private SinhVien sinhVien;
+    private BaiTap baiTap;
+    public Nhom(String nhom, ArrayList<SinhVien> sv, ArrayList<BaiTap> bt ) {
+        this.nhom = nhom;
+        String[] s = nhom.split("\\s+");
+        int thuTu =Integer.valueOf(s[1]);
+        for(SinhVien tmp : sv){
+            if(tmp.getMaSV().contentEquals(s[0])){
+                this.sinhVien= tmp;
+                break;
+            }
+        }
+        for(BaiTap i : bt){
+            if(i.getThutu() == thuTu){
+                this.baiTap = i;
+                break;
+            }
+        }
+    }
+    @Override
+    public int compareTo(Nhom x){
+        return this.sinhVien.getMaSV().compareTo(x.sinhVien.getMaSV());
+    }
+    @Override
+    public String toString() {
+        return sinhVien+" "+baiTap;
+    }
+}
+quanlybaitapnhom/SinhVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom;
+
+
+public class SinhVien {
+    private String maSV, tenSV, sdt;
+
+    public SinhVien(String maSV,String tenSV, String sdt) {
+        this.maSV = maSV;
+        this.tenSV = tenSV;
+        this.sdt = sdt;
+    }
+
+    public String getMaSV() {
+        return maSV;
+    }
+    @Override
+    public String toString() {
+        return maSV+" "+tenSV+" "+sdt;
+    }
+}
+
