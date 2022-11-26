@@ -1,0 +1,64 @@
+danhsachcathi/CaThi.java
+
+package danhsachcathi;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class CaThi implements Comparable<CaThi> {
+    static int id=1;
+    private String maphong,maca;
+    private Date time;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    public CaThi(String ngay, String gio, String maphong) throws ParseException{
+        this.maphong = maphong;
+        this.time = dateFormat.parse(ngay+" "+ gio);
+        this.maca=xulyma(maca);
+    }
+    private String xulyma(String ma){
+        if(id<10) ma="C00";
+        else if(id<100) ma="C0";
+        else ma="C";
+        ma+= Integer.toString(id++);
+        return ma;
+    }
+    @Override
+    public int compareTo(CaThi b){
+        if(this.time.equals(b.time)){
+            if(this.maca.compareTo(b.maca)>0) return 1;
+        }
+        else if(this.time.compareTo(b.time)>0) return 1;
+        return -1;
+    }
+    @Override
+    public String toString(){
+        return maca+" "+dateFormat.format(time)+" "+maphong;
+    }
+}
+
+danhsachcathi/MainJ07059.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package danhsachcathi;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+public class MainJ07059 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException{
+        Scanner in = new Scanner(new File("CATHI.in"));
+        int t=Integer.parseInt(in.nextLine());
+        ArrayList<CaThi> a= new ArrayList<>();
+        while(t-->0) {
+            a.add(new CaThi(in.nextLine(),in.nextLine(),in.nextLine()));
+        }
+        Collections.sort(a);
+        for(CaThi i : a) {
+            System.out.println(i);
+        }
+    }
+}
+
