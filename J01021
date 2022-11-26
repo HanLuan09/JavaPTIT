@@ -1,0 +1,26 @@
+import java.util.*;
+public class LuyThua {
+    static long Mod =1000000007L;
+    public static void main(String[] args){
+        int a;
+        long b;
+        Scanner in=new Scanner(System.in);
+        int ok=0;
+        while(ok==0){
+            a=in.nextInt();
+            b=in.nextLong();
+            if(a==0&&b==0) ok=1;
+            else{
+                System.out.println(Luythua(a, b));
+            }
+        }
+    }
+    private static long Luythua(int a,long b){
+        if(b==0) return 1;
+        if(b==1) return a;
+        long tmp = Luythua(a,b/2);
+        tmp=(tmp*tmp)%Mod;
+        if(b%2==0) return tmp;
+        else return (tmp*a)%Mod;
+    }
+}
