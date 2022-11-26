@@ -1,0 +1,59 @@
+thoigianonlinelientuc/MainJ07084.java
+
+package thoigianonlinelientuc;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+
+public class MainJ07084 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in = new Scanner(new File("ONLINE.in"));
+        int t= Integer.parseInt(in.nextLine());
+        ArrayList<Time> a = new ArrayList<>();
+        while(t-->0){
+            a.add(new Time(in.nextLine(),in.nextLine(),in.nextLine()));
+        }
+        Collections.sort(a);
+        for(Time i : a){
+            System.out.println(i);
+        }
+    }
+}
+
+thoigianonlinelientuc/Time.java
+
+package thoigianonlinelientuc;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+public class Time implements Comparable<Time>{
+    private String name;
+    private Date time1, time2;
+    private long timeonline;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
+
+    public Time(String name, String time1, String time2) throws ParseException{
+        this.name = name;
+        this.time1 = dateFormat.parse(time1);
+        this.time2 = dateFormat.parse(time2);
+        this.timeonline = soTime();
+    }
+    private long soTime(){
+//        return TimeUnit.MILLISECONDS.toMillis(time2.getTime() - time1.getTime());
+        return (time2.getTime() - time1.getTime()) / (60 * 1000);
+    }
+    @Override
+    public int compareTo(Time x) {
+        if(x.timeonline == this.timeonline){
+            return this.name.compareTo(x.name);
+        }
+        return (int) (x.timeonline - this.timeonline);
+    }
+    @Override
+    public String toString() {
+        return name +" "+ timeonline;
+    }
+}
+
