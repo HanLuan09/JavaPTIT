@@ -1,0 +1,26 @@
+import java.util.*;
+public class DiemCanBang {
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int t=in.nextInt();
+        while(t-->0){
+            int n=in.nextInt();
+            int[] A=new int[100001];
+            int sum=0,s=0,ok=0;
+            for(int i=0;i<n;i++){
+                A[i]=in.nextInt();
+                sum+=A[i];
+            }
+            for(int i=0;i<n;i++){
+                sum-=A[i];
+                if(sum==s){
+                    ok=i+1;
+                    break;
+                }
+                s+=A[i];
+            }
+            if(ok==0) System.out.println("-1");
+            else System.out.println(ok);
+        }
+    }
+}
