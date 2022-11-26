@@ -1,0 +1,75 @@
+danhsachkhachhangtrongfile/KhachHang.java
+
+package danhsachkhachhangtrongfile;
+
+import java.text.*;
+import java.util.*;
+
+public class KhachHang implements Comparable<KhachHang>{
+    static int id=1;
+    private String ma, ten,gt, dchi;
+    private Date ns;
+
+    public KhachHang(String ten, String gt, String ns,String dchi) throws ParseException {
+        this.ten = ten;
+        this.gt = gt;
+        this.ns = new SimpleDateFormat("dd/MM/yyyy").parse(ns);
+        this.dchi = dchi;
+        this.ma = xulyma(ma);
+        this.ten =xulyten(ten);
+        
+    }
+    private String xulyma(String ma){
+        if(id<10) ma ="KH00";
+        else if(id<100) ma = "KH0";
+        else ma = "KH";
+        ma = ma+Integer.toString(id++);
+        return ma;
+    }
+    private String xulyten(String name){
+        StringTokenizer st = new StringTokenizer(name);
+        StringBuilder kq = new StringBuilder();
+        while(st.hasMoreElements()){
+            String t=st.nextToken();
+            kq.append(Character.toUpperCase(t.charAt(0)));
+            for(int i=1;i<t.length();i++){
+                kq.append(Character.toLowerCase(t.charAt(i)));
+            }
+            kq.append(" ");
+        }
+        return kq.toString().trim();
+    }
+    @Override
+    public int compareTo(KhachHang x){
+        if(this.ns.compareTo(x.ns)>0) return 1;
+        return -1;
+    }
+    public String toString(){
+        return ma+" "+ ten+" "+gt+" "+dchi+" "+new SimpleDateFormat("dd/MM/yyyy").format(ns);
+    }
+}
+
+danhsachkhachhangtrongfile/MainJ07025.java
+
+package danhsachkhachhangtrongfile;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class MainJ07025 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in = new Scanner(new File("KHACHHANG.in"));
+        ArrayList<KhachHang> a = new ArrayList<>();
+        int t = in.nextInt();
+        in.nextLine();
+        while(t-->0){
+            a.add(new KhachHang(in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine()));   
+        }
+        Collections.sort(a);
+        for(KhachHang i : a){
+            System.out.println(i);
+        }
+    }
+}
+
