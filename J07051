@@ -1,0 +1,91 @@
+tinhtienphongfile/KhachHang.java
+
+package tinhtienphongfile;
+
+import java.text.ParseException;
+import java.util.*;
+import java.text.*;
+import java.util.concurrent.TimeUnit;
+public class KhachHang implements Comparable<KhachHang>{
+    static int id=1;
+    private String ten,maP,maKh;
+    private Date ngden,ngdi,ng;
+    private long ngay;
+    private int ps, tien;
+    private static int donGia[] = {0, 25, 34, 50, 80};
+
+
+    public KhachHang(String ten, String maP, String ngden, String ngdi,int ps) throws ParseException  {
+        this.ten = ten;
+        this.maP = maP;
+        this.ngden = new SimpleDateFormat("dd/MM/yyyy").parse(ngden);
+        this.ngdi = new SimpleDateFormat("dd/MM/yyyy").parse(ngdi);
+        this.ps = ps;
+        this.maKh=xulyMa(maKh);
+        this.ngay=soNgay()+1;
+        this.tien = (int) (this.ngay * KhachHang.donGia[this.maP.charAt(0) - '0'] + ps);
+        this.ten = chuanhoa(ten);
+    }
+    private String chuanhoa(String s){
+        StringTokenizer st= new StringTokenizer(s);
+        StringBuilder k= new StringBuilder();
+        while(st.hasMoreElements()){
+            String t= st.nextToken();
+            k.append(Character.toUpperCase(t.charAt(0)));
+            for(int i=1;i<t.length();i++){
+                k.append(Character.toLowerCase(t.charAt(i)));
+            }
+            k.append(" ");
+        }
+        return k.toString().trim();
+    }
+    private long soNgay() {
+        return TimeUnit.MILLISECONDS.toDays(ngdi.getTime() - ngden.getTime());
+    }
+    private String xulyMa(String ma){
+        if(id<10){
+            ma="KH0";
+        }
+        else {
+            ma="KH";
+        }
+        ma+=Integer.toString(id++);
+        return ma;
+    }
+    @Override
+    public int compareTo(KhachHang x){
+        return (int) (x.tien - this.tien);
+    }
+    @Override
+    public String toString(){
+        return maKh+" "  +ten+" "+maP+ " "+ ngay+" "+tien;
+    }
+
+    
+}
+
+
+tinhtienphongfile/MainJ07051.java
+
+package tinhtienphongfile;
+
+
+import java.text.ParseException;
+import java.util.*;
+import java.io.*;
+
+public class MainJ07051 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in= new Scanner(new File("KHACHHANG.in"));
+        int t=Integer.parseInt(in.nextLine());
+        ArrayList<KhachHang> a = new ArrayList<>();
+        while(t-->0){
+            a.add(new KhachHang(in.nextLine(),in.nextLine(),in.nextLine(),in.nextLine(),Integer.parseInt(in.nextLine())));
+        }
+        Collections.sort(a);
+        for(KhachHang i: a){
+            System.out.println(i);
+        }
+    }
+}
+
