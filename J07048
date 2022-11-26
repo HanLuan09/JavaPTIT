@@ -1,0 +1,66 @@
+DanhSachSanPham2/Main.java
+
+package DanhSachSanPham2;
+
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in= new Scanner(new File("SANPHAM.in"));
+        int t=Integer.parseInt(in.nextLine());
+        ArrayList<SanPham> list= new ArrayList<>();
+        while(t-->0){
+            SanPham sp= new SanPham(in.nextLine(),in.nextLine(),Integer.parseInt(in.nextLine()),Integer.parseInt(in.nextLine()));
+            list.add(sp);
+        }
+        Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham a, SanPham b) {
+                if(a.getGia()==b.getGia()) return a.getMa().compareTo(b.getMa());
+                if(a.getGia()< b.getGia()) return 1;
+                return -1;
+            }
+        });
+        for(SanPham i : list){
+            System.out.println(i);
+        }
+    }
+}
+
+DanhSachSanPham2/SanPham.java
+
+package DanhSachSanPham2;
+import java.util.*;
+import java.io.*;
+public class SanPham {
+    private String ma,ten;
+    private int gia,baohanh;
+
+    public SanPham() {
+    }
+
+    public SanPham(String ma, String ten, int gia, int baohanh) {
+        this.ma = ma;
+        this.ten = ten;
+        this.gia = gia;
+        this.baohanh = baohanh;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+    
+//    public int compareTo(SanPham b){
+//        if(this.gia==b.gia) return this.ma.compareTo(b.ma);
+//        if(this.gia< b.gia) return 1;
+//        return -1;
+//    }
+    public String toString(){
+        return ma+" "+ ten+" "+gia+" "+ baohanh;
+    }
+}
+
