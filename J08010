@@ -1,0 +1,39 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaCOLLECTION;
+
+import java.io.*;
+import java.util.*;
+
+
+public class TimtuThuannghichdainhat {
+    public static boolean check(String s){
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)!= s.charAt(s.length()-i-1)) return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+//        Scanner in = new Scanner(new File("THUANNGHICH.in"));
+        Scanner in = new Scanner(System.in);
+        Map<String, Integer> map = new LinkedHashMap<>();
+        int x =0;
+        while(in.hasNext()){
+            String s= in.next();
+            if(check(s)){
+                if(map.get(s)==null){
+                    map.put(s, 1);
+                    x = Math.max(x, s.length());
+                }
+                else map.put(s, map.get(s)+1);
+            }
+        }
+        for(Map.Entry<String,Integer> entry : map.entrySet()) {
+            if(x == entry.getKey().length())
+                System.out.println(entry.getKey()+" "+entry.getValue());
+        }
+    }
+
+}
