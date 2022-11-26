@@ -1,0 +1,100 @@
+quanlybaitapnhom1/BaiTap.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom1;
+
+
+public class BaiTap {
+    private String battap;
+    private int nhom;
+    
+    public BaiTap(String battap, int nhom) {
+        this.battap = battap;
+        this.nhom = nhom;
+    }
+
+    public int getNhom() {
+        return nhom;
+    }
+    
+    @Override
+    public String toString(){
+        return battap;
+    }
+}
+
+quanlybaitapnhom1/MainJ06003.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom1;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+
+public class MainJ06003 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+//        Scanner in = new Scanner(new File("BATTAPNHOM1.in"));
+        int n = in.nextInt(), m=in.nextInt();
+        in.nextLine();
+        ArrayList<SinhVien> listSV = new ArrayList<>();
+        ArrayList<BaiTap> listBT = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            listSV.add(new SinhVien(in.nextLine(), in.nextLine(), in.nextLine(), Integer.parseInt(in.nextLine())));
+        }
+        for(int i=0;i<m;i++){
+            listBT.add(new BaiTap(in.nextLine(), i+1));
+        }
+        int q= in.nextInt();
+        while(q-->0){
+            int truyvan = in.nextInt();
+            System.out.println("DANH SACH NHOM "+truyvan+":");
+            for(SinhVien i : listSV){
+                if(i.getNhom()==truyvan){
+                    System.out.println(i);
+                }
+            }
+//            System.out.println("Bai tap dang ky: "+listBT.get(truyvan));
+            System.out.print("Bai tap dang ky: ");
+            for (BaiTap i : listBT) {
+                if (i.getNhom() == truyvan)
+                    System.out.println(i);
+            }
+        }
+    }
+}
+
+quanlybaitapnhom1/SinhVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlybaitapnhom1;
+
+
+public class SinhVien {
+    private String  maSV, tenSV,sdtSV;
+    private int nhom;
+
+    public SinhVien(String maSV, String tenSV, String sdtSV, int nhom) {
+        this.maSV = maSV;
+        this.tenSV = tenSV;
+        this.sdtSV = sdtSV;
+        this.nhom = nhom;
+    }
+
+    public int getNhom() {
+        return nhom;
+    }
+    
+    public String toString() {
+        return maSV+" "+ tenSV+" "+sdtSV;
+    }
+}
+
