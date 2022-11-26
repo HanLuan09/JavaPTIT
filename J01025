@@ -1,0 +1,20 @@
+import java.util.*;
+public class HinhVuong {
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int x1=in.nextInt();
+        int y1=in.nextInt();
+        int a1=in.nextInt();
+        int b1=in.nextInt();
+        int x2=in.nextInt();
+        int y2=in.nextInt();
+        int a2=in.nextInt();
+        int b2=in.nextInt();
+        int x=Math.min(x1, x2);
+        int y=Math.min(y1, y2);
+        int a=Math.max(a1, a2);
+        int b=Math.max(b1, b2);
+        int tmp=Math.max((a-x),(b-y));
+        System.out.print(tmp*tmp);
+    }
+}
