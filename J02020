@@ -1,0 +1,28 @@
+import java.util.*;
+public class LietKeToHop {
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n=in.nextInt();
+        int k=in.nextInt();
+        int[] a= new int[k+5];
+        for(int i=1;i<=k;i++){
+            a[i]=i;
+        }
+        int dem=0;
+        while(true){
+            dem++;
+            for(int i=1;i<=k;i++){
+                System.out.printf("%d ",a[i]);
+            }
+            System.out.printf("%n");
+            int x=k;
+            while(x>0 && a[x]>=n-k+x) x--;
+            if(x==0) break;
+            a[x]++;
+            for(int j=x+1;j<=k;j++) a[j]=a[j-1]+1;
+        }
+        System.out.printf("Tong cong co %d to hop%n",dem);
+    }
+    
+}
