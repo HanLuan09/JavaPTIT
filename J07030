@@ -1,0 +1,39 @@
+import java.util.*;
+import java.io.*;
+public class CapSoNTTrongFile1 {
+    static int[] F = new int[1000000];
+
+    public static void Prime() {
+        F[0] = F[1] = 1;
+        for (int i = 2; i <= 1000; i++) 
+            if (F[i] == 0) 
+                for (int j = i * i; j < 1000000; j += i) 
+                    F[j] = 1;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Prime();
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("DATA1.in"));
+        List<Integer> list1 = (ArrayList<Integer>) ois.readObject();
+        int[] a = new int[1000001];
+        for (int i = 0; i < list1.size(); i++) {
+            int x = list1.get(i);
+            if(F[x]==0) {
+                a[x]++;
+            }
+        }
+        ObjectInputStream is = new ObjectInputStream(new FileInputStream("DATA2.in"));
+        List<Integer> list2 = (ArrayList<Integer>) is.readObject();
+        for (int i = 2; i < 500000; i++) {
+            if(a[i] > 0) {
+                int x = 1000000 - i;
+                if(F[x]==0 && list2.contains(x)) {
+                    System.out.println(i + " " + x);
+                }
+            }
+        }
+        ois.close();
+        is.close();
+    }
+
+}
