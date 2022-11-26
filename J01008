@@ -1,0 +1,24 @@
+import java.util.*;
+public class PhantichSNT {
+    public static void main(String[] args){
+        int t;
+        Scanner in= new Scanner(System.in);
+        t=in.nextInt();
+        for(int x=1;x<=t;x++){
+            long n=in.nextLong();
+            System.out.printf("Test %d: ",x);
+            for(int i=2;i*i<=n;i++){
+                int dem=0;
+                while(n%i==0){
+                    dem++;
+                    n/=i;
+                }
+               if(dem>0) System.out.printf("%d(%d) ",i,dem);
+            }
+            if(n>1){
+                System.out.printf("%d(%d) ",n,1);
+            }
+            System.out.printf("%n");
+        }
+    }
+}
