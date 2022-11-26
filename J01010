@@ -1,0 +1,26 @@
+import java.util.*;
+public class CatDoi {
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int t=in.nextInt();
+        while(t-->0){
+            String S=in.next();
+            long kq=0;
+            int ok=0;
+            for(int i=0;i<S.length();i++){
+                if(S.charAt(i)=='1'){
+                    kq=kq*10+1;
+                }
+                else if(S.charAt(i)=='0'||S.charAt(i)=='8'||S.charAt(i)=='9'){
+                    kq=kq*10;
+                }
+                else{
+                    ok=1; 
+                    break;
+                }
+            }
+            if(ok==0 && kq!=0) System.out.println(kq);
+            else System.out.println("INVALID");
+        }
+    }
+}
