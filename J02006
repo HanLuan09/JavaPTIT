@@ -1,0 +1,25 @@
+import java.util.*;
+public class Hop2Day {
+    public static void main(String[] args){
+        Scanner in =new Scanner(System.in);
+        int n=in.nextInt();
+        int m=in.nextInt();
+        int[] a=new int[1001];
+        int[] b=new int[1001];
+        Arrays.fill(a,0);
+        Arrays.fill(b,0);
+        for(int i=0;i<n;i++){
+            int x=in.nextInt();
+            a[x]++;
+        }
+        for(int i=0;i<m;i++){
+            int y=in.nextInt();
+            b[y]++;
+        }
+        for(int i=0;i<1001;i++){
+            if(a[i]!=0||b[i]!=0){
+                System.out.print(i+" ");
+            }
+        }
+    }
+}
