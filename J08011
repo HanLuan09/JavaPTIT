@@ -1,0 +1,70 @@
+lietkevadem/LietKevaDem.java
+
+package javaCOLLECTION.lietkevadem;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class LietKevaDem {
+    private static boolean check(int n) {
+        int r = n % 10;
+        n /= 10;
+        while(n > 0){
+            if(r < n % 10)
+                return false;
+            r = n % 10;
+            n /= 10;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+//        Scanner sc = new Scanner(new File("LIETKE.in"));
+        Scanner sc = new Scanner(System.in);
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        while(sc.hasNext()){
+            int s = sc.nextInt();
+            if(check(s)){
+                if(map.get(s)==null){
+                    map.put(s,1);
+                }
+                else{
+                    map.put(s,map.get(s)+1);
+                }
+            }
+        }
+        ArrayList<Pair> list = new ArrayList<>();
+        Set<Map.Entry<Integer, Integer>> entry = map.entrySet();
+        
+        for(Map.Entry<Integer, Integer> x: entry){
+            list.add(new Pair(x.getKey(), x.getValue()));
+        }
+        Collections.sort(list);
+        for(Pair x: list){
+            System.out.println(x);
+        }
+    }
+      
+}
+lietkevadem/Pair.java
+
+package javaCOLLECTION.lietkevadem;
+
+
+public class Pair implements Comparable<Pair>{
+    private int fi,se;
+
+    public Pair(int fi, int se) {
+        this.fi = fi;
+        this.se = se;
+    }
+    @Override
+    public int compareTo(Pair x){
+        return x.se - this.se;
+    }
+    public String toString(){
+        return fi +" "+ se;
+    }
+}
+
