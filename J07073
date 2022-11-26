@@ -1,0 +1,65 @@
+dangkyhinhthucgiangday/MainJ07073.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package dangkyhinhthucgiangday;
+
+import java.io.*;
+import java.util.*;
+
+
+public class MainJ07073 {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("MONHOC.in"));
+        int n = sc.nextInt();
+        ArrayList <MonHoc> list = new ArrayList<>();
+        while(n-- > 0){
+            String maMonHoc = sc.next();
+            sc.nextLine();
+            String tenMonHoc = sc.nextLine();
+            int soTinChi = Integer.parseInt(sc.nextLine());
+            String liThuyet = sc.nextLine();
+            String thucHanh = sc.nextLine();
+            if(!thucHanh.equals("Truc tiep"))
+                    list.add(new MonHoc(maMonHoc, tenMonHoc, soTinChi, liThuyet, thucHanh));
+        }
+        Collections.sort(list, new Comparator<MonHoc>(){
+            @Override
+            public int compare(MonHoc o1, MonHoc o2) {
+                return o1.getMaMonHoc().compareTo(o2.getMaMonHoc());
+            }
+        });
+        for(MonHoc x : list){
+            System.out.println(x);
+        }
+    }
+}
+dangkyhinhthucgiangday/MonHoc.java
+
+package dangkyhinhthucgiangday;
+
+
+class MonHoc{
+    private String maMonHoc, TenMonHoc;
+    private int soTinChi;
+    private String liThuyet, thucHanh;
+
+    public String getMaMonHoc() {
+        return maMonHoc;
+    }
+
+    public MonHoc(String maMonHoc, String TenMonHoc, int soTinChi, String liThuyet, String thucHanh) {
+        this.maMonHoc = maMonHoc;
+        this.TenMonHoc = TenMonHoc;
+        this.soTinChi = soTinChi;
+        this.liThuyet = liThuyet;
+        this.thucHanh = thucHanh;
+    }
+    
+    @Override
+    public String toString(){
+        return this.maMonHoc + " "+ this.TenMonHoc + " " + this.soTinChi + " " + this.liThuyet + " " + this.thucHanh;
+    }
+}
+
