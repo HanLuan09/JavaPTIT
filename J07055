@@ -1,0 +1,83 @@
+xeploaifile/MainJ07055.java
+
+package xeploaifile;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
+
+public class MainJ07055 {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in = new Scanner(new File("BANGDIEM.in"));
+        ArrayList<XepLoai> a= new ArrayList<>();
+        int t= Integer.parseInt(in.nextLine());
+        while(t-->0){
+            a.add(new XepLoai(in.nextLine(),Float.parseFloat(in.nextLine()),Float.parseFloat(in.nextLine()),Float.parseFloat(in.nextLine())));
+        }
+        Collections.sort(a);
+        for (XepLoai i: a){
+            System.out.println(i);
+        }
+    }
+}
+
+xeploaifile/XepLoai.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package xeploaifile;
+
+import java.util.*;
+public class XepLoai implements Comparable<XepLoai>{
+    static int id=1;
+    private String ten,masv,xeploai;
+    private float lt,th,thi,tong;
+
+    public XepLoai(String ten, float lt, float th, float thi)  {
+        this.ten = ten;
+        this.lt = lt;
+        this.th = th;
+        this.thi = thi;
+        this.ten=chuanhoa(ten);
+        this.masv=xulyma(masv);
+        this.tong=lt*0.25f+ th*0.35f+ thi*0.4f;
+        this.xeploai= ketqua(tong);
+    }
+    private String chuanhoa(String s){
+        StringTokenizer st= new StringTokenizer(s);
+        StringBuilder k= new StringBuilder();
+        while(st.hasMoreElements()){
+            String t= st.nextToken();
+            k.append(Character.toUpperCase(t.charAt(0)));
+            for(int i=1;i<t.length();i++){
+                k.append(Character.toLowerCase(t.charAt(i)));
+            }
+            k.append(" ");
+        }
+        return k.toString().trim();
+    }
+    private String ketqua(float x){
+        String tmp="";
+        if(x>=8f) tmp="GIOI";
+        else if(6.5f<=x && x<8f) tmp="KHA";
+        else if(5f<=x && x<6.5f) tmp="TRUNG BINH";
+        else tmp="KEM";
+        return tmp;
+    }
+    private String xulyma(String ma){
+        if(id<10) ma="SV0";
+        else ma="SV";
+        ma+=Integer.toString(id++);
+        return ma;
+    }
+    public int compareTo(XepLoai b){
+        if(this.tong>b.tong) return -1;
+        return 1;
+    }
+    public String toString() {
+        return masv+" "+ten+" "+String.format("%.2f",tong)+" "+xeploai;
+    }
+}
+
