@@ -1,0 +1,23 @@
+import java.util.*;
+public class DeSoLanXuatHien {
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int t=in.nextInt();
+        for(int k=1;k<=t;k++){
+            int n=in.nextInt();
+            int[] a=new int[n];
+            int[] x=new int[100001];
+            for(int i=0;i<n;i++){
+                a[i]=in.nextInt();
+                x[a[i]]+=1;
+            }
+            System.out.printf("Test %d:%n",k);
+            for(int i=0;i<n;i++){
+                if(x[a[i]]>0){
+                    System.out.printf("%d xuat hien %d lan%n",a[i],x[a[i]]);
+                    x[a[i]]=0;
+                }
+            }
+        }
+    }
+}
