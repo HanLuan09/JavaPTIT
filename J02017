@@ -1,0 +1,19 @@
+import java.util.*;
+public class ThuGonDaySo {
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int n=in.nextInt();
+        int[] A=new int[n+5];
+        for(int i=0;i<n;i++) A[i]=in.nextInt();
+        Stack st= new Stack();
+        for (int i=0;i<n;i++){
+            if(st.empty()) st.push(A[i]);
+            else{
+                int x=(int)st.peek();
+                if((x+A[i])%2==0) st.pop();
+                else st.push(A[i]);
+            }
+        }
+        System.out.println(st.size());
+    }
+}
