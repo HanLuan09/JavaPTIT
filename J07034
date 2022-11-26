@@ -1,0 +1,60 @@
+DanhSachMonHoc/Main.java
+
+package DanhSachMonHoc;
+import java.io.*;
+import java.util.*;
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException{
+       Scanner in= new Scanner(new File("MONHOC.in"));
+
+        int t=in.nextInt();
+        in.nextLine();
+        Vector<MonHoc> v=new Vector<>();
+        while(t-->0){
+            MonHoc mh= new MonHoc(in.nextLine(),in.nextLine(),in.nextInt());
+            in.nextLine();
+            v.add(mh);
+        }
+        Collections.sort(v, new Comparator<MonHoc>(){
+            
+            @Override
+            public int compare(MonHoc a, MonHoc b) {
+                if (a.getTen().compareTo(b.getTen()) > 0)
+                    return 1;
+                return -1;
+            }
+                 
+        });
+        for(int i=0;i<v.size();i++){
+            System.out.println(v.get(i));
+        }
+    }
+}
+
+DanhSachMonHoc/MonHoc.java
+
+package DanhSachMonHoc;
+
+
+public class MonHoc {
+    private String ma,ten;
+    private int sotin;
+
+    public MonHoc() {
+    }
+
+    public MonHoc(String ma, String ten, int sotin) {
+        this.ma = ma;
+        this.ten = ten;
+        this.sotin = sotin;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+    
+    public String toString(){
+        return ma+" "+ten+" "+sotin;
+    }
+}
+
