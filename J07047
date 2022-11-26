@@ -1,0 +1,131 @@
+quanlykhachsan/KhachHang.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlykhachsan;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+
+public class KhachHang implements Comparable<KhachHang>{
+    private String maKH, tenKH, maPhong;
+    private Date ngDen, ngDi;
+    private int ngayLuuTru;
+    private float thanhTien;
+    private KhachSan khachSan;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    public KhachHang(int i, String tenKH, String maPhong, String ngDen, String ngDi, ArrayList<KhachSan>listKS) throws ParseException {
+        this.maKH = "KH" + String.format("%02d", i);
+        this.tenKH = tenKH;
+        this.maPhong = maPhong;
+        this.ngDen = dateFormat.parse(ngDen);
+        this.ngDi = dateFormat.parse(ngDi);
+        this.ngayLuuTru = soNgay();
+        int tinhLT = ngayLuuTru;
+        if(ngayLuuTru ==0) tinhLT =1;
+        for(KhachSan x: listKS){
+            if(x.getMaP().contentEquals(maPhong.charAt(2)+"")){
+                this.khachSan = x;
+                this.thanhTien =tinhTien(khachSan.getDonGiaNgay(), khachSan.getPhiPV(), tinhLT);
+                break;
+            }
+        }
+    }
+    private int soNgay(){
+        return (int) TimeUnit.MILLISECONDS.toDays(ngDi.getTime() - ngDen.getTime());
+    }
+    private float tinhTien(float dongia, float phiPV, int soNgayLT){
+        return (dongia*soNgayLT +(dongia*soNgayLT*phiPV))*(1-giamGia(soNgayLT));
+    }
+    private float giamGia(int soNgayLT){
+        if(soNgayLT<10) return 0;
+        else if( soNgayLT<20) return 0.02f;
+        else if( soNgayLT<30) return 0.04f;
+        else return 0.06f;
+    }
+    @Override
+    public int compareTo(KhachHang x){
+        return x.ngayLuuTru - this.ngayLuuTru;
+    }
+    @Override
+    public String toString(){
+        return maKH+" "+ tenKH+" "+ maPhong+" "+ ngayLuuTru+" "+String.format("%.2f",thanhTien);
+    }
+}
+
+quanlykhachsan/KhachSan.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlykhachsan;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class KhachSan {
+    private String thongtinPhong, maP, tenP;
+    private float donGiaNgay, phiPV;
+
+    public KhachSan(String thongtinPhong) {
+        this.thongtinPhong = thongtinPhong;
+        String[] s = thongtinPhong.split("\\s+");
+        this.maP = s[0];
+        this.tenP = s[1];
+        this.donGiaNgay = Float.valueOf(s[2]);
+        this.phiPV = Float.valueOf(s[3]);
+    }
+
+    public String getMaP() {
+        return maP;
+    }
+
+    public float getDonGiaNgay() {
+        return donGiaNgay;
+    }
+
+    public float getPhiPV() {
+        return phiPV;
+    }
+    
+    
+}
+
+quanlykhachsan/MainJ07047.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package quanlykhachsan;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.*;
+
+
+public class MainJ07047 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in = new Scanner(new File("DATA.in"));
+        int n = in.nextInt(); in.nextLine();
+        ArrayList<KhachSan> listKS = new ArrayList<>();
+        while(n-->0){
+            listKS.add(new KhachSan(in.nextLine()));
+        }
+        int m = in.nextInt(); in.nextLine();
+        ArrayList<KhachHang> listKH = new ArrayList<>();
+        for(int i=1;i<=m;i++){
+            listKH.add(new KhachHang(i,in.nextLine(), in.nextLine(), in.nextLine(), in.nextLine(), listKS));
+        }
+        Collections.sort(listKH);
+        for(KhachHang x: listKH)
+            System.out.println(x);
+    }
+}
+
