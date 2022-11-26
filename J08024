@@ -1,0 +1,21 @@
+import java.util.*;
+public class So0va9 {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t=in.nextInt();
+        while(t-->0){
+            int n=in.nextInt();
+            Queue<Integer> q= new LinkedList<>();
+            q.offer(9);
+            while(true){
+                int x=q.poll();
+                if(x%n==0){
+                    System.out.println(x);
+                    break;
+                }
+                q.offer(x*10);
+                q.offer(x*10+9);
+            }
+        }
+    }
+}
