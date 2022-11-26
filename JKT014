@@ -1,0 +1,33 @@
+
+package javaCOLLECTION;
+
+import java.util.*;
+
+public class DauTuchungkhoan {
+    private static void solove(int[] a, int n){
+        List<Integer> list = new ArrayList<>();
+        Stack<Integer> st = new Stack<>();
+        for( int i=0;i<n;i++) {
+            while(!st.isEmpty() && a[i]>= a[st.peek()]) st.pop();
+            if(st.isEmpty()) list.add(i+1);
+            else list.add(i-st.peek());
+            st.push(i);
+        }
+        for(Integer i : list){
+            System.out.print(i+" ");
+        }
+        System.out.println("");
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        while(t-- > 0){
+            int n = in.nextInt();
+            int[] a = new int[n+5];
+            for(int i = 0; i < n; i++){
+                a[i] = in.nextInt();
+            }
+            solove(a, n);
+        }
+    }
+}
