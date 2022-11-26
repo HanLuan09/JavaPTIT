@@ -1,0 +1,22 @@
+import java.util.Scanner;
+public class UclnBcnn {
+    public static void main(String[] args){
+        int t;
+        Scanner in= new Scanner(System.in);
+        t= in.nextInt();
+        while(t-->0){
+            long a,b;
+            a= in.nextLong();
+            b= in.nextLong();
+            int x=UCLL(a,b);
+            System.out.println((int)a*b/x+" "+x);
+        }
+    }
+    private static int UCLL(long a, long b){
+        while(a!=b){
+            if(a>b) a=a-b;
+            else b=b-a;
+        }
+        return (int)b;
+    }
+}
