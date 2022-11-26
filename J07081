@@ -1,0 +1,67 @@
+sapxepdanhsachsinhvien/MainJ07081.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxepdanhsachsinhvien;
+
+import java.io.*;
+import java.util.*;
+
+public class MainJ07081 {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in= new Scanner(new File("SINHVIEN.in"));
+        int t= Integer.parseInt(in.nextLine());
+        ArrayList<SinhVien> a= new ArrayList<>();
+        while(t-->0){
+            a.add(new SinhVien(in.nextLine(),in.nextLine(),in.nextLine(),in.nextLine()));
+        }
+        Collections.sort(a);
+        for(SinhVien i : a){
+            System.out.println(i);
+        }
+    }
+}
+
+sapxepdanhsachsinhvien/SinhVien.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxepdanhsachsinhvien;
+
+import java.util.*;
+public class SinhVien implements Comparable<SinhVien>{
+    private String ma,sdt,mail,hoten, ho,ten,tendem;
+
+    public SinhVien(String ma, String hoten, String sdt, String mail) {
+        this.ma = ma;
+        this.hoten = hoten;
+        this.sdt = sdt;
+        this.mail = mail;
+        String[] s = this.hoten.split("\\s");
+        this.ho = s[0];
+        for (int i = 1; i < s.length-1; i++) {
+            this.tendem += s[i] + " ";
+        }
+        this.ten = s[s.length-1];
+    }
+    @Override
+    public int compareTo(SinhVien b){
+        if( this.ten.equals(b.ten)){
+            if(this.ho.equals(b.ho)){
+                if(this.tendem.equals(b.tendem)){
+                    return this.ma.compareTo(b.ma);
+                }
+                return this.tendem.compareTo(b.tendem);
+            }
+            return this.ho.compareTo(b.ho);
+        }
+        return this.ten.compareTo(b.ten);
+    }
+    @Override
+    public String toString(){
+        return ma+" "+hoten+" "+sdt+" "+mail;
+    }
+}
+
