@@ -1,0 +1,65 @@
+biendoiS_T/Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javaCOLLECTION.biendoiS_T;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int test = sc.nextInt();
+        while(test-- > 0){
+            int s = sc.nextInt(), t = sc.nextInt();
+            XulyJ0826  a = new XulyJ0826(s,t);
+            System.out.println(a);
+        }
+    }
+}
+biendoiS_T/XulyJ0826.java
+
+package javaCOLLECTION.biendoiS_T;
+
+import java.util.*;
+
+
+public class XulyJ0826 {
+    private int s,t,kq;
+
+    public XulyJ0826(int s, int t) {
+        this.s = s;
+        this.t = t;
+        this.kq= solve(s, t);
+    }
+    private int solve(int s, int t) {
+        Queue <Integer> q = new LinkedList<>();
+        int[] a = new int[20001];
+        q.add(s);
+        while(!q.isEmpty()){
+            int top = q.poll();
+            if(top == t){
+                return a[t];
+            }
+            if(2*top < 20000 && a[2*top] == 0){
+                if(2*top == t)
+                    return a[top] + 1;
+                q.add(2*top);
+                a[2*top] = a[top] + 1;
+            }
+            if(top - 1 > 0 && a[top - 1] == 0){
+                if(top - 1 == t)
+                    return a[top] + 1;
+                q.add(top - 1);
+                a[top - 1] = a[top] + 1;
+            }
+        }
+        return 0;
+    }
+    @Override
+    public String toString() {
+        return String.valueOf(kq);
+    }
+}
+
