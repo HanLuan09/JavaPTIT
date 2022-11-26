@@ -1,0 +1,23 @@
+import java.util.*;
+import java. math.BigInteger;
+public class BoiSo {
+    
+    public static Long Gcd(long a,long n){
+        BigInteger x= BigInteger.valueOf(a);
+        BigInteger y= BigInteger.valueOf(n);
+        BigInteger gcd=x.gcd(y);
+        return gcd.longValue();
+    }
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int t= in.nextInt();
+        while(t-->0){
+            int a=in.nextInt();
+            long k=1;
+            for(int i=1;i<=a;i++){
+                k=(long)i*k/Gcd(i,k);
+            }
+            System.out.println(k);
+        }
+    }
+}
