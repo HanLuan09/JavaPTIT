@@ -1,0 +1,159 @@
+sapxeplichthi/CaThi.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxeplichthi;
+
+import java.util.*;
+import java.text.*;
+
+public class CaThi {
+    private String maCathi, phongThi;
+    private Date thoigian;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
+    private static int id =1;
+
+    public CaThi(String ngaythi, String giothi, String phongThi) throws ParseException {
+        this.thoigian = dateFormat.parse(ngaythi +" "+ giothi);
+        this.phongThi = phongThi;
+        this.maCathi = "C" +String.format("%03d",id++);
+    }
+
+    public String getMaCathi() {
+        return maCathi;
+    }
+
+    public Date getThoigian() {
+        return thoigian;
+    }
+    
+    @Override
+    public String toString() {
+        return dateFormat.format(thoigian)+" "+phongThi;
+    }
+}
+
+sapxeplichthi/LichThi.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxeplichthi;
+
+import java.util.ArrayList;
+
+
+public class LichThi implements Comparable<LichThi>{
+    private String thongtin, maNhom, soSV;
+    private MonThi monThi;
+    private CaThi caThi;
+
+    public LichThi(String thongtin, ArrayList<MonThi> listMT, ArrayList<CaThi> listCT) {
+        this.thongtin = thongtin;
+        String[] s = thongtin.split("\\s+");
+        this.maNhom = s[2];
+        this.soSV = s[3];
+        for(MonThi x : listMT){
+            if(x.getMaMon().contentEquals(s[1])){
+                this.monThi = x;
+                break;
+            }
+        }
+        for(CaThi x : listCT){
+            if(x.getMaCathi().contentEquals(s[0])){
+                this.caThi = x;
+                break;
+            }
+        }
+    }
+    @Override
+    public int compareTo(LichThi x){
+        if(this.caThi.getThoigian().equals(x.caThi.getThoigian())){
+            return this.caThi.getMaCathi().compareTo(x.caThi.getMaCathi());
+        }
+        return this.caThi.getThoigian().compareTo(x.caThi.getThoigian());
+    }
+    @Override
+    public String toString(){
+        return caThi+ " "+ monThi + " " + maNhom + " "+ soSV;
+    }
+}
+
+sapxeplichthi/MainJ07060.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxeplichthi;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.*;
+
+
+public class MainJ07060 {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner in;
+        //nhap mon thi
+        in = new Scanner(new File("MONTHI.in"));
+        int n = in.nextInt(); in.nextLine();
+        ArrayList<MonThi> listMT = new ArrayList<>();
+        while(n-->0){
+            listMT.add(new MonThi(in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+//        in.close();
+        //nhap ca thi
+        in = new Scanner(new File("CATHI.in"));
+        int m = in.nextInt(); in.nextLine();
+        ArrayList<CaThi> listCT = new ArrayList<>();
+        while(m-->0){
+            listCT.add(new CaThi(in.nextLine(), in.nextLine(), in.nextLine()));
+        }
+//        in.close();
+        //nhap lich thi
+        in = new Scanner(new File("LICHTHI.in"));
+        int x = in.nextInt(); in.nextLine();
+        ArrayList<LichThi> listLT = new ArrayList<>();
+        while(x-->0){
+            listLT.add(new LichThi(in.nextLine(), listMT, listCT));
+        }
+        //xu ly
+        Collections.sort(listLT);
+        for(LichThi i : listLT){
+            System.out.println(i);
+        }
+        in.close();
+    }
+}
+
+sapxeplichthi/MonThi.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package sapxeplichthi;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class MonThi {
+    private String maMon, tenMon,hinhthucThi;
+
+    public MonThi(String maMon, String tenMon, String hinhthucThi) {
+        this.maMon = maMon;
+        this.tenMon = tenMon;
+        this.hinhthucThi = hinhthucThi;
+    }
+
+    public String getMaMon() {
+        return maMon;
+    }
+    @Override
+    public String toString() {
+        return tenMon;
+    }
+}
+
