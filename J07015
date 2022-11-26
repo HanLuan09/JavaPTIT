@@ -1,0 +1,34 @@
+
+package javacode2;
+
+import java.util.*;
+import java.io.*;
+public class SoNTTrongFileNhiPhan {
+    static int[] F = new int[10000];
+
+    public static void Prime() {
+        Arrays.fill(F, 1);
+        F[0] = F[1] = 0;
+        for (int i = 2; i <= 100; i++) 
+            if (F[i] == 1) 
+                for (int j = i * i; j < 10000; j += i) 
+                    F[j] = 0;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Prime();
+        ObjectInputStream sc= new ObjectInputStream(new FileInputStream("SONGUYEN.in"));
+        ArrayList<Integer> ds= (ArrayList<Integer>) sc.readObject();
+        int[] a= new int[100000];
+        for(Integer i: ds){
+            a[i]+=F[i];
+        }
+        for(int i=2;i<10000;i++){
+            if(a[i]>0)
+                System.out.println(i+" "+a[i]);
+        }
+        sc.close();
+    }
+
+
+}
