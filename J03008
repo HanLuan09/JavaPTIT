@@ -1,0 +1,25 @@
+import java.util.*;
+public class SoDep3 {
+    
+    private static boolean Check (String s){
+        int n=s.length();
+        for(int i=0;i<n/2;i++){
+           if(s.charAt(i)!=s.charAt(n-i-1)) return false;
+           if(s.charAt(i)!='2' && s.charAt(i)!='3' && s.charAt(i)!='5' &&s.charAt(i)!='7') return false;
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        int t;
+        Scanner in =new Scanner(System.in);
+        t=in.nextInt();
+        while(t-->0){
+            
+            String s=in.next();
+         //  System.out.println(Check(s));
+            if(Check(s)==true) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
+
