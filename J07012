@@ -1,0 +1,78 @@
+thongketukhacnhautrongfilenhiphan/Pair.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package thongketukhacnhautrongfilenhiphan;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class Pair implements Comparable<Pair>{
+    private String fi;
+    private int se;
+
+    public Pair(String fi, int se) {
+        this.fi = fi;
+        this.se = se;
+    }
+    @Override
+    public int compareTo(Pair x){
+        if(x.se == this.se) return this.fi.compareTo(x.fi);
+        return x.se- this.se;
+    }
+    @Override
+    public String toString(){
+        return fi+" "+se;
+    }
+}
+
+thongketukhacnhautrongfilenhiphan/ThongKe.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package thongketukhacnhautrongfilenhiphan;
+
+
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+
+
+public class ThongKe {
+    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+        ObjectInputStream sc= new ObjectInputStream(new FileInputStream("DATA.in"));
+        ArrayList<String> ds= (ArrayList<String>) sc.readObject();
+  
+        Map<String,Integer> map = new LinkedHashMap<>();
+        for(String x: ds){
+            
+            Pattern patternDate = Pattern.compile("[A-Za-z0-9]+");
+            Matcher matcher = patternDate.matcher(x);
+            while(matcher.find()) {
+                String ans =x.substring(matcher.start(), matcher.end());
+                String i = ans.toLowerCase();
+                if(map.get(i)==null){
+                    map.put(i, 1);
+                }
+                else{
+                    map.put(i,map.get(i)+1);
+                }
+            }   
+            
+        }
+        ArrayList<Pair> list = new ArrayList<>();
+        Set<Map.Entry<String, Integer>> entrys = map.entrySet();
+        for(Map.Entry<String, Integer> x: entrys){
+            list.add(new Pair(x.getKey(),x.getValue()));
+        }
+        Collections.sort(list);
+        for(Pair x: list){
+            System.out.println(x);
+        }
+    }
+}
+
+
