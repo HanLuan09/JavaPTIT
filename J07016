@@ -1,0 +1,45 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package javacodefile;
+
+import java.io.*;
+import java.util.*;
+
+public class J07016 {
+    static int[] F = new int[1000000];
+
+    public static void Prime() {
+        Arrays.fill(F, 1);
+        F[0] = F[1] = 0;
+        for (int i = 2; i <= 1000; i++) 
+            if (F[i] == 1) 
+                for (int j = i * i; j < 1000000; j += i) 
+                    F[j] = 0;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Prime();
+        ObjectInputStream sc= new ObjectInputStream(new FileInputStream("DATA1.in"));
+        ArrayList<Integer> ds1= (ArrayList<Integer>) sc.readObject();
+        int[] a= new int[10005];
+        for(Integer i: ds1){
+            a[i]+=F[i];
+        }
+        sc= new ObjectInputStream(new FileInputStream("DATA2.in"));
+        ArrayList<Integer> ds2= (ArrayList<Integer>) sc.readObject();
+        int[] b= new int[10005];
+        for(Integer i: ds2){
+            b[i]+=F[i];
+        }
+        
+        for(int i=2;i<=10000;i++){
+            if(F[i]==1 && a[i]>0 && b[i]>0){
+                System.out.println(i+" "+a[i]+" "+b[i]);
+            }
+        }
+        sc.close();
+    }
+
+}
